@@ -10,53 +10,44 @@ public class Usuario {
     private String password;
     private LocalDate date;
     private LocalDate dateOff;
-    private static Boolean estado;
+    private Boolean estado;
     private Plan planActual;
     private static int lastID = 0;
 
-    //Constructor
-
-    public Usuario(String name, String email, String planActual, String date, String dateOff) {
+    // Constructor principal
+    public Usuario(String name, String email, String password, Plan planActual) {
         setName(name);
         setEmail(email);
+        setPassword(password);
         setPlanActual(planActual);
         this.id = ++lastID;
-        setPassword(password);
         this.date = LocalDate.now();
         calcularVencimiento();
     }
 
-    public Usuario(String name, String email, String date, String dateOff) {
+    // Constructor con plan básico por defecto
+    public Usuario(String name, String email, String password) {
         setName(name);
         setEmail(email);
-        this.planActual = "Basic";
         setPassword(password);
+        setPlanActual(Plan.BASIC);
+        this.id = ++lastID;
+        this.date = LocalDate.now();
+        calcularVencimiento();
     }
 
-    //Getters
-
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public static Boolean getEstado() {
-        return estado;
-    }
-
-    public String getDateOff() {
-        return dateOff;
-    }
+    // Getters
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public Boolean getEstado() { return estado; }
+    public LocalDate getDateOff() { return dateOff; }
+    public Plan getPlanActual() { return planActual; }
 
     //Setters
 
 
     public void setName(String name) {
-        if(name != null && name.trim().isEmpty()){
+        if(name != null && !name.trim().isEmpty()){
             this.name = name;
         } else {
             throw new IllegalArgumentException("Error, debe colocar un nombre válido");
@@ -78,20 +69,15 @@ public class Usuario {
         this.password = password;
     }
 
-    public void setPlanActual(String planActual) {
-        if ("Basic".equals(planActual) || "Premium".equals(planActual)) {
-            this.planActual = planActual;
-            calcularVencimiento();
-        } else {
-            throw new IllegalArgumentException("Error, seleccione el plan correcto.");
-        }
+    public void setPlanActual(Plan planActual) {
+        this.planActual = planActual;
+        calcularVencimiento();
     }
+
 
     //Logica
 
     private void calcularVencimiento() {
         this.dateOff = LocalDate.now().plusDays(planActual.getDuracionDias());
     }
-
-
 }
