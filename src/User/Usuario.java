@@ -10,7 +10,7 @@ public class Usuario {
     private String password;
     private LocalDate date;
     private LocalDate dateOff;
-    private Boolean estado;
+    private boolean estado;
     private Plan planActual;
     private static int lastID = 0;
 
@@ -20,26 +20,22 @@ public class Usuario {
         setEmail(email);
         setPassword(password);
         setPlanActual(planActual);
+
+        this.estado = true;
         this.id = ++lastID;
         this.date = LocalDate.now();
-        calcularVencimiento();
     }
 
     // Constructor con plan básico por defecto
     public Usuario(String name, String email, String password) {
-        setName(name);
-        setEmail(email);
-        setPassword(password);
-        setPlanActual(Plan.BASIC);
-        this.id = ++lastID;
-        this.date = LocalDate.now();
-        calcularVencimiento();
+        this(name, email, password, Plan.BASIC);
     }
 
     // Getters
     public String getName() { return name; }
     public String getEmail() { return email; }
-    public Boolean getEstado() { return estado; }
+    public int getId() { return id; }
+    public boolean getEstado() { return estado; }
     public LocalDate getDateOff() { return dateOff; }
     public Plan getPlanActual() { return planActual; }
 
@@ -70,6 +66,10 @@ public class Usuario {
     }
 
     public void setPlanActual(Plan planActual) {
+        if(planActual == null){
+            throw new IllegalArgumentException("Plan inválido");
+        }
+
         this.planActual = planActual;
         calcularVencimiento();
     }

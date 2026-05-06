@@ -1,5 +1,6 @@
 package Reserve;
 
+import ClassGym.GymClass;
 import User.Usuario;
 
 import java.time.LocalDate;
@@ -7,12 +8,12 @@ import java.time.LocalDate;
 public class Reserva {
     private final int id;
     private Usuario usuario;
-    private String clase; // por ejemplo "Yoga", "Pilates"
+    private GymClass clase; // por ejemplo "Yoga", "Pilates"
     private LocalDate fecha;
     private State estado;
     private static int lastID = 0;
 
-    public Reserva(Usuario usuario, String clase, LocalDate fecha) {
+    public Reserva(Usuario usuario, GymClass clase, LocalDate fecha) {
         this.id = ++lastID;
         setUsuario(usuario);
         setClase(clase);
@@ -23,7 +24,7 @@ public class Reserva {
     // Getters
     public int getId() { return id; }
     public Usuario getUsuario() { return usuario; }
-    public String getClase() { return clase; }
+    public GymClass getClase() { return clase; }
     public LocalDate getFecha() { return fecha; }
     public State getEstado() { return estado; }
 
@@ -35,15 +36,18 @@ public class Reserva {
         this.usuario = usuario;
     }
 
-    public void setClase(String clase) {
-        if (clase != null && !clase.trim().isEmpty()) {
-            this.clase = clase;
-        } else {
+    public void setClase(GymClass clase) {
+        if (clase == null) {
             throw new IllegalArgumentException("Clase inválida");
         }
+        this.clase = clase;
     }
 
     public void setFecha(LocalDate fecha) {
+        if (fecha == null) {
+            throw new IllegalArgumentException("La fecha no puede ser nula");
+        }
+
         if (fecha.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("La fecha no puede ser anterior a hoy");
         }
@@ -51,6 +55,10 @@ public class Reserva {
     }
 
     public void setEstado(State estado) {
+        if (estado == null) {
+            throw new IllegalArgumentException("Estado inválido");
+        }
+
         this.estado = estado;
     }
 }

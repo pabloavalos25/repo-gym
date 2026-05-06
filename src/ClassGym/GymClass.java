@@ -1,6 +1,5 @@
 package ClassGym;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class GymClass {
@@ -24,16 +23,14 @@ public class GymClass {
         }
 
         if (horario.isBefore(APERTURA) || horario.isAfter(CIERRE)) {
-            throw new IllegalArgumentException("Gimnasio cerrado, intente mas tarde" + "Horario permitido: " + APERTURA + "a" + CIERRE);
+            throw new IllegalArgumentException("Gimnasio cerrado. Horario permitido: " + APERTURA + " a " + CIERRE);
         }
         this.horario = horario;
     }
 
-
-
     //Constructor
 
-    public GymClass(String name, String profesor, LocalTime horario, int cuposDisponibles) {
+    public GymClass(String name, String profesor, LocalTime horario, int cupoMaximo,  int cuposDisponibles) {
         setName(name);
         setProfesor(profesor);
         setHorario(horario);
@@ -45,6 +42,7 @@ public class GymClass {
 
     public String getName() { return name; }
     public String getProfesor() { return profesor; }
+    public LocalTime getHorario() { return horario; }
     public int getCupoMaximo() { return cupoMaximo; }
     public int getCuposDisponibles() { return cuposDisponibles; }
 
@@ -67,7 +65,7 @@ public class GymClass {
     }
 
     public void setCupoMaximo(int cupoMaximo) {
-        if (cupoMaximo > 0 && cupoMaximo < cuposDisponibles)
+        if (cupoMaximo <= 0 || cupoMaximo < cuposDisponibles)
             throw new IllegalArgumentException("Error, no hay cupos disponibles.");
         else {
             this.cupoMaximo = cupoMaximo;
@@ -76,7 +74,7 @@ public class GymClass {
     }
 
     public void setCuposDisponibles(int cuposDisponibles) {
-        if (this.cuposDisponibles >= 0) {
+        if (this.cuposDisponibles < 0) {
             System.out.println("No hay cupos disponibles.");
             this.cuposDisponibles = 0;
         }else {
