@@ -82,5 +82,21 @@ public class GymClass {
         }
     }
 
+    //Metodos
+
+    public void ocuparCupo() {
+        if (cuposDisponibles <= 0) {
+            throw new IllegalStateException("No hay cupos disponibles");
+        }
+
+        cuposDisponibles--;
+    }
+
+    public void liberarCupo() {
+        if (cuposDisponibles < cupoMaximo) {
+            cuposDisponibles++;
+        }
+    }
+
 
 }

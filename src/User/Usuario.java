@@ -80,4 +80,8 @@ public class Usuario {
     private void calcularVencimiento() {
         this.dateOff = LocalDate.now().plusDays(planActual.getDuracionDias());
     }
+
+    public String getPassword() {
+        return password;
+    }
 }
