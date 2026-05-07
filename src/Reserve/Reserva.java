@@ -61,4 +61,15 @@ public class Reserva {
 
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "id=" + id +
+                ", usuario=" + usuario +
+                ", clase=" + clase +
+                ", fecha=" + fecha +
+                ", estado=" + estado +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package User;
 
 
 import java.time.LocalDate;
+import Utils.PasswordUtil;
 
 public class Usuario {
     private final int id;
@@ -61,8 +62,9 @@ public class Usuario {
     public void setPassword(String password) {
         if (!password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$")) {
             throw new IllegalArgumentException("Contraseña inválida");
+        }else {
+            this.password = PasswordUtil.hashPassword(password);
         }
-        this.password = password;
     }
 
     public void setPlanActual(Plan planActual) {
@@ -84,4 +86,14 @@ public class Usuario {
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nombre='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
 }

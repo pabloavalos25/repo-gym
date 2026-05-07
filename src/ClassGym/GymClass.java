@@ -98,5 +98,15 @@ public class GymClass {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "GymClass{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", profesor='" + profesor + '\'' +
+                ", horario=" + horario +
+                ", cupoMaximo=" + cupoMaximo +
+                ", cuposDisponibles=" + cuposDisponibles +
+                '}';
+    }
 }
